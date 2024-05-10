@@ -17,7 +17,7 @@ public class Tree {
          if(Character.isAlphabetic(str.charAt(i))||str.charAt(i)=='('||str.charAt(i)==')'||str.charAt(i)=='|'||str.charAt(i)=='-' ){
             temp+=str.charAt(i);
          }
-//;ssssssssss
+
          //Store nodes in ArrayList
          if (Character.isAlphabetic(str.charAt(i))){
 
@@ -37,6 +37,7 @@ public class Tree {
       int sBracket=0, eBracket=0,indexF=0;
       String sub;
       makeTreeStack=new Stack();
+      //يقسم النص الى قوسين واشارة
       for (int i= 0;i<s.length();i++){
          if(s.charAt(i)=='('&&sBracket==0) {
             sBracket++;
