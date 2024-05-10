@@ -30,6 +30,7 @@ public class Tree {
 
          }
       }
+      System.out.println(temp);
       makeTree(temp);
 
    }
@@ -37,39 +38,62 @@ public class Tree {
       int sBracket=0, eBracket=0,indexF=0;
       String sub;
       makeTreeStack=new Stack();
+      boolean flag=s.charAt(0)=='(';
       //يقسم النص الى قوسين واشارة
-      for (int i= 0;i<s.length();i++){
-         if(s.charAt(i)=='('&&sBracket==0) {
-            sBracket++;
-            indexF=i;
-            continue;
-         }
-         if(s.charAt(i)=='('){
-            sBracket++;
-         }
-         if(s.charAt(i)==')')
-            eBracket++;
-         if(sBracket==eBracket && sBracket>0){
-            if((i+1<s.length())&&(s.charAt(i+1)=='-'||s.charAt(i+1)=='|')){
-               char op=s.charAt(i+1);
-               String opp=String.valueOf(op);
-               makeTreeStack.push(opp);
+      for (int i= 0;i<s.length();i++) {
+         if (flag) {
+            if (s.charAt(i) == '(' && sBracket == 0) {
+               sBracket++;
+               indexF = i;
+               continue;
             }
-            sub=s.substring(indexF+1,i);
-            makeTreeStack.push(sub);
-            sBracket=eBracket=0;
+            if (s.charAt(i) == '(')
+               sBracket++;
+
+            if (s.charAt(i) == ')')
+               eBracket++;
+
+            if (sBracket == eBracket && sBracket > 0) {
+               flag=false;
+               if ((i + 1 < s.length()) && (s.charAt(i + 1) == '-' || s.charAt(i + 1) == '|')) {
+                  char op = s.charAt(i + 1);
+                  String opp = String.valueOf(op);
+                  makeTreeStack.push(opp);
+               }
+               sub = s.substring(indexF + 1, i);
+               makeTreeStack.push(sub);
+               sBracket = eBracket = 0;
+               if ((i + 1 < s.length()) && (s.charAt(i+2)=='('))
+                  flag=true;
+            }
+         }else{
+            if(Character.isAlphabetic(s.charAt(i))){
+               if ((i + 1 < s.length()) && (s.charAt(i + 1) == '-' || s.charAt(i + 1) == '|')) {
+                  char op = s.charAt(i + 1);
+                  String opp = String.valueOf(op);
+                  makeTreeStack.push(opp);
+               }
+               String temp=String.valueOf(s.charAt(i));
+               makeTreeStack.push(temp);
+               if ((i + 1 < s.length()) && (s.charAt(i+2)=='('))
+                  flag=true;
+
+            }
          }
 
       }
       System.out.println(makeTreeStack.toString());
+
+      addToStack();
+
+   }
+   public void addToStack(){
       String t0=makeTreeStack.pop(),t1=makeTreeStack.pop(),t2=makeTreeStack.pop();
       root =new Node(t2);
       root.left=new Node(t1);
       root.right=new Node(t0);
 
-      System.out.println(root.toString());
-
-
+//      System.out.println(root.toString());
    }
   
 }
