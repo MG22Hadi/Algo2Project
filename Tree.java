@@ -17,7 +17,6 @@ public class Tree {
          if(Character.isAlphabetic(str.charAt(i))||str.charAt(i)=='('||str.charAt(i)==')'||str.charAt(i)=='|'||str.charAt(i)=='-' ){
             temp+=str.charAt(i);
          }
-
          //Store nodes in ArrayList
          if (Character.isAlphabetic(str.charAt(i))){
 
@@ -30,12 +29,14 @@ public class Tree {
 
          }
       }
+
       System.out.println(temp);
-      makeTree(temp);
+      makeTree(temp ,root);
+      addToStack();
 
    }
-   public void makeTree(String s){
-      int sBracket=0, eBracket=0,indexF=0;
+   public Node makeTree(String s,Node root){
+      int sBracket=0, eBracket=0,indexF=0,tempR=0;
       String sub;
       makeTreeStack=new Stack();
       boolean flag=s.charAt(0)=='(';
@@ -55,6 +56,7 @@ public class Tree {
 
             if (sBracket == eBracket && sBracket > 0) {
                flag=false;
+               //خزننا الرووت
                if ((i + 1 < s.length()) && (s.charAt(i + 1) == '-' || s.charAt(i + 1) == '|')) {
                   char op = s.charAt(i + 1);
                   String opp = String.valueOf(op);
@@ -68,6 +70,7 @@ public class Tree {
             }
          }else{
             if(Character.isAlphabetic(s.charAt(i))){
+               // لتخزين الرروت
                if ((i + 1 < s.length()) && (s.charAt(i + 1) == '-' || s.charAt(i + 1) == '|')) {
                   char op = s.charAt(i + 1);
                   String opp = String.valueOf(op);
@@ -80,21 +83,27 @@ public class Tree {
 
             }
          }
-
       }
-      System.out.println(makeTreeStack.toString());
+//      System.out.println(makeTreeStack.toString());
 
-      addToStack();
-
-   }
-   public void addToStack(){
+      if(makeTreeStack.size()>1){
       String t0=makeTreeStack.pop(),t1=makeTreeStack.pop(),t2=makeTreeStack.pop();
       root =new Node(t2);
-      root.left=new Node(t1);
-      root.right=new Node(t0);
-
-//      System.out.println(root.toString());
+      root.left=makeTree(t1,new Node(t1));
+      root.right=makeTree(t0,new Node(t0));
+      }else{
+         String t0=makeTreeStack.pop();
+         root =new Node(t0);
+      }
+      if(tempR==0)
+         this.root=root;
+      tempR++;
+      return root;
    }
+
+   public void addToStack(){
+      System.out.println(root);
+        }
   
 }
 
