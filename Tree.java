@@ -103,7 +103,6 @@ public class Tree {
 
    public void addToStack(){
       System.out.println(root);
-        }
+   }
   
 }
-
