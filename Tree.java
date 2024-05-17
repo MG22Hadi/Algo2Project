@@ -104,5 +104,59 @@ public class Tree {
    public void addToStack(){
       System.out.println(root);
    }
+
+   public boolean isRec(ArrayList nodesList){
+      System.out.println(nodesList);
+
+      for(int i=0;i<nodesList.size();i++){
+         Node a=(Node) nodesList.get(i);
+         for(int j=i+1;j<nodesList.size();j++){
+            Node b=(Node) nodesList.get(j);
+            if(a.width == b.width){
+               int height=a.height+ b.height,width= a.width;
+               String name="("+a.name+"|"+b.name+")";
+               Node newNode=new Node(height,width,name);
+               nodesList.addFirst(newNode);
+               nodesList.remove(a);
+               nodesList.remove(b);
+               a=newNode;
+               j--;
+               i=nodesList.indexOf(a)-1;
+//               if(i==0){
+//                  i=-1;
+//               }else {
+//                  i=0;
+//               }
+
+            }else if(a.height == b.height){
+               int height=a.height,width= a.width+b.width;
+               String name="("+a.name+"-"+b.name+")";
+               Node newNode=new Node(height,width,name);
+               nodesList.addFirst(newNode);
+               nodesList.remove(a);
+               nodesList.remove(b);
+               a=newNode;
+               j--;
+               i=nodesList.indexOf(a)-1;
+
+//               if(i==0){
+//                  i=-1;
+//               }else {
+                  //i=0;
+//               }
+            }
+         }
+      }
+
+
+
+      System.out.println(nodesList);
+      if(nodesList.size()==1){
+         return true;
+      }else {
+         return false;
+      }
+
+   }
   
 }

@@ -24,10 +24,10 @@ public class Node {
 
     @Override
     public String toString() {
-        return "\n Node{" +
+        return " Node{" +
                 " name=" + name +" "+
-                ", Left "+ left+" "+
-                ", Right "+ right+" "+
+                ", h "+ height+" "+
+                ", w "+ width+" "+
 
                 '}';
     }
