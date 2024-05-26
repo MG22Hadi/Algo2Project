@@ -9,30 +9,35 @@ public class Tree {
    Node root ;
 
    public Node storeNum(String str){
-      int x=0;
-      String temp="";
-       
-
-      for(int i= 0;i<str.length();i++){
-         // تجريد العبارة من الارقام
-         if(Character.isAlphabetic(str.charAt(i))||str.charAt(i)=='('||str.charAt(i)==')'||str.charAt(i)=='|'||str.charAt(i)=='-' ){
+    int x=0,f=0,k=0;
+    String temp="";
+      
+       for(int i= 0;i<str.length();i++){
+        if(Character.isAlphabetic(str.charAt(i))||str.charAt(i)=='('||str.charAt(i)==')'||str.charAt(i)=='|'||str.charAt(i)=='-' ){
             temp+=str.charAt(i);
-         }
+            for(int j=i;j<str.length();j++){
+                if(str.charAt(j)==','){
+                    f=j;
+
+                }
+                if(str.charAt(j)==']'){
+                    k=j;
+                    break;
+                }
+            }
+        }
          //Store nodes in ArrayList
          if (Character.isAlphabetic(str.charAt(i))){
 
-            String heightS =str.substring(i+2,i+4);
+            String heightS =str.substring(i+2,f);
             int heightI = Integer.parseInt(heightS);
-            String widthS=str.substring(i+5,i+7);
+            String widthS=str.substring(f+1,k);
             int widthI= Integer.parseInt(widthS);
             Node newNode= new Node(heightI,widthI ,str.charAt(i));
-            nodesList.add(newNode);
-            
+            nodesList.add(newNode);      
          }
-      }
-     
+       }
     return import1(temp);
-
    }
    
    ArrayList <Node> storeStrings = new ArrayList<>();
