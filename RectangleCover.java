@@ -25,7 +25,13 @@ public class RectangleCover {
             }
         }
         
-
+            System.out.println("Matrix after filling:");
+                for (int i = 0; i < bigRectangleHeight; i++) {
+                    for (int j = 0; j < bigRectangleWidth; j++) {
+                        System.out.print(matrix[i][j]? "T " : "F ");
+                    }
+                    System.out.println();
+                }
         for (int i = 0; i < bigRectangleHeight; i++) {
             for (int j = 0; j < bigRectangleWidth; j++) {
                 if (!matrix[i][j]) {
@@ -56,22 +62,22 @@ public class RectangleCover {
 
     public static void main(String[] args) {
         List<leafNode> smallleafNodes = new ArrayList<>();
-        smallleafNodes.add(new leafNode(2, 2));
-        smallleafNodes.add(new leafNode(12, 2));
-        smallleafNodes.add(new leafNode(1, 8));
-        smallleafNodes.add(new leafNode(1, 8));
-        smallleafNodes.add(new leafNode(2, 3));
-        smallleafNodes.add(new leafNode(3, 3));
-        smallleafNodes.add(new leafNode(3, 3));
-        smallleafNodes.add(new leafNode(4, 3));
-        smallleafNodes.add(new leafNode(5, 5));
-        smallleafNodes.add(new leafNode(1, 5));
-        smallleafNodes.add(new leafNode(6, 2));
-        smallleafNodes.add(new leafNode(6, 3));
-        smallleafNodes.add(new leafNode(14, 1));
+        smallleafNodes.add(new leafNode(20, 10));
+        smallleafNodes.add(new leafNode(20, 10));
+        smallleafNodes.add(new leafNode(30, 10));
+        smallleafNodes.add(new leafNode(30, 50));
+        smallleafNodes.add(new leafNode(40, 30));
+        smallleafNodes.add(new leafNode(40, 20));
+        //smallleafNodes.add(new leafNode(3, 3));
+        // smallleafNodes.add(new leafNode(4, 3));
+        // smallleafNodes.add(new leafNode(5, 5));
+        // smallleafNodes.add(new leafNode(1, 5));
+        // smallleafNodes.add(new leafNode(6, 2));
+        // smallleafNodes.add(new leafNode(6, 3));
+        // smallleafNodes.add(new leafNode(14, 1));
         
-        int bigRectangleWidth = 14;
-        int bigRectangleHeight = 11;
+        int bigRectangleWidth = 70;
+        int bigRectangleHeight = 60;
 
         if (coverRectangles(bigRectangleWidth, bigRectangleHeight, smallleafNodes)) {
             System.out.println("The large rectangle can be covered successfully!");

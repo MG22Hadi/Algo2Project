@@ -34,19 +34,20 @@ public class BinaryTree {
             String widthS=str.substring(f+1,k);
             int widthI= Integer.parseInt(widthS);
             Node newNode= new Node(heightI,widthI ,str1);
-            nodesList.add(newNode);      
+            nodesList.add(newNode); 
+            str1="";     
          }
        }
-    return import1(temp);
+    return exportTotree(temp);
    }
    
    ArrayList <Node> storeStrings = new ArrayList<>();
-   Node rootNode = new Node("root", null, null);
+   Node rootNode = new Node("r", null, null);
    Node newNode,leftNode,rightNode;
     /*
      * function to set a public nodes in tree 
      */
-    public Node import1(String str){
+    public Node exportTotree(String str){
         
         int indexOfRoot=0;
        for(int i=0;i<str.length();i++){
@@ -78,7 +79,7 @@ public class BinaryTree {
                 strright+=str.charAt(i+1);
                 str1+=str.charAt(i);
                 rightNode= new Node(strright,null,null);
-               newNode = new Node(str1,   null,rightNode);
+               newNode = new Node(str1,null,rightNode);
                storeStrings.add(newNode);
                
             }
@@ -93,24 +94,26 @@ public class BinaryTree {
             }
           } 
         }
+
       rootNode =makeTree(storeStrings,  rootNode.root);
 
-    //   for (Node node : nodesList) {
-    //     for (Node node2 : storeStrings) {
-    //         if (node2.name==node.name) {
-    //             node2.height= node.height;
-    //             node2.width = node.width;
-    //         }
-    //         if ( node2.left.name==node.name) {
-    //             node2.left.height= node.height;
-    //             node2.left.width = node.width;
-    //         }
-    //         if ( node2.right.name== node.name) {
-    //             node2.right.height= node.height;
-    //             node2.right.width = node.width;
-    //         }
-    //     }
-    //   }
+      for (Node node : nodesList) {
+        for (Node node2 : storeStrings) {
+            if (node2.name.equals(node.name)) {
+                node2.height= node.height;
+                node2.width = node.width;
+            }
+            if ( node2.left.name.equals(node.name)) {
+                node2.left.height= node.height;
+                node2.left.width = node.width;
+            }
+            if ( node2.right.name.equals(node.name)) {
+                node2.right.height= node.height;
+                node2.right.width = node.width;
+            }
+        }
+      }
+     
       return rootNode;
     }
     /*
@@ -178,7 +181,7 @@ public class BinaryTree {
                 }
             }
         }
-       
+        
         return root;       
     }
     /*

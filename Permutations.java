@@ -30,13 +30,7 @@ public class Permutations {
                     }
                 }
             }
-            // System.out.println("Matrix after filling:");
-            // for (int i = 0; i < bigRectangleHeight; i++) {
-            //     for (int j = 0; j < bigRectangleWidth; j++) {
-            //         System.out.print(matrix[i][j]? "T " : "F ");
-            //     }
-            //     System.out.println();
-            // }
+           
   
             for (int i = 0; i < bigRectangleHeight; i++) {
                 for (int j = 0; j < bigRectangleWidth; j++) {
@@ -55,14 +49,12 @@ public class Permutations {
   
     private  boolean isValidPosition(boolean[][] matrix, int bigRectangleWidth, int bigRectangleHeight,
                                           int row, int col, int smallleafNodeHeight, int smallleafNodeWidth) {
-        // Check if the placement goes out of bounds
         return row >= 0 && row < bigRectangleHeight && col >= 0 && col < bigRectangleWidth &&
               !isOverlapping(matrix, bigRectangleWidth, bigRectangleHeight, row, col, smallleafNodeHeight, smallleafNodeWidth);
     }
   
     private  boolean isOverlapping(boolean[][] matrix, int bigRectangleWidth, int bigRectangleHeight,
                                           int row, int col, int smallleafNodeHeight, int smallleafNodeWidth) {
-        // Check for overlap within the small leafNode's footprint
         for (int i = row; i < row + smallleafNodeHeight; i++) {
             for (int j = col; j < col + smallleafNodeWidth; j++) {
                 if (i < bigRectangleHeight && j < bigRectangleWidth && matrix[i][j]) {
@@ -73,7 +65,7 @@ public class Permutations {
   
         return false;
     }
-  
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++
     //تابع لايجاد تباديل الاحرف ووضعها في مصفوفة 
     public  List<List<Node>> getPermutations(List<Node> nodes) {
         List<List<Node>> permutations = new ArrayList<>();
@@ -82,7 +74,7 @@ public class Permutations {
         }
         return permutations;
     }
-    
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++
     private  Iterable<List<Node>> permutations(List<Node> nodes) {
         if (nodes.size() == 1) {
             List<List<Node>> result = new ArrayList<>();
@@ -140,12 +132,14 @@ public class Permutations {
             bigRectangleWidth=dimensions.get(i).width;
             for (int j = 0; j < permutations.size(); j++) {
                 if (coverRectangles(bigRectangleWidth, bigRectangleHeight, permutations.get(j))) {
+
                     //System.out.println("The large rectangle can be covered successfully!");
                     return true;
                 } 
                 
             }
         }
+        
         return false;
     }
     public  int countMakeableRectangles(List<Node> dimensions, List<List<Node>> permutations){
