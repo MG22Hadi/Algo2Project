@@ -4,14 +4,14 @@ import java.util.Deque;
 import java.util.Stack;
 
 //(A[20,10] | (B[20,10]|C[30,10])) – (D[30,50] | (E[40,30] – F[40,20]))
-public class Tree {
+public class BinaryTree {
    ArrayList<Node> nodesList= new ArrayList<>();
    Node root ;
 
    public Node storeNum(String str){
     int x=0,f=0,k=0;
     String temp="";
-      
+    String str1="";
        for(int i= 0;i<str.length();i++){
         if(Character.isAlphabetic(str.charAt(i))||str.charAt(i)=='('||str.charAt(i)==')'||str.charAt(i)=='|'||str.charAt(i)=='-' ){
             temp+=str.charAt(i);
@@ -28,12 +28,12 @@ public class Tree {
         }
          //Store nodes in ArrayList
          if (Character.isAlphabetic(str.charAt(i))){
-
+            str1+=str.charAt(i);
             String heightS =str.substring(i+2,f);
             int heightI = Integer.parseInt(heightS);
             String widthS=str.substring(f+1,k);
             int widthI= Integer.parseInt(widthS);
-            Node newNode= new Node(heightI,widthI ,str.charAt(i));
+            Node newNode= new Node(heightI,widthI ,str1);
             nodesList.add(newNode);      
          }
        }
@@ -41,64 +41,76 @@ public class Tree {
    }
    
    ArrayList <Node> storeStrings = new ArrayList<>();
-   Node rootNode = new Node('r', null, null);
+   Node rootNode = new Node("root", null, null);
    Node newNode,leftNode,rightNode;
     /*
      * function to set a public nodes in tree 
      */
     public Node import1(String str){
-        //String str = 
         
         int indexOfRoot=0;
        for(int i=0;i<str.length();i++){
+        String str1 = "";
+        String strleft = "";
+        String strright = "";
           if (str.charAt(i)=='|' || str.charAt(i)=='-') {
             if (str.charAt(i-1)==')' && str.charAt(i+1)=='('&& !(isWithinBrackets(str, i))) {
-                newNode = new Node(str.charAt(i), null, null);
+                str1+=str.charAt(i);
+                newNode = new Node(str1, null, null);
                indexOfRoot=i;
                rootNode.root = newNode;
                storeStrings.add(newNode);
             }
-            if (str.charAt(i-1)==')' && str.charAt(i+1)=='('&& (isWithinBrackets(str, i))) {
-               newNode = new Node(str.charAt(i), null, null);
+            else if (str.charAt(i-1)==')' && str.charAt(i+1)=='('&& (isWithinBrackets(str, i))) {
+                str1+=str.charAt(i);
+               newNode = new Node(str1, null, null);
                storeStrings.add(newNode);
             }
-            if ((Character.isAlphabetic(str.charAt(i-1)) && str.charAt(i+1)=='(') ) {
-                leftNode= new Node(str.charAt(i-1),null,null);
-               newNode = new Node(str.charAt(i), leftNode , null);
+            else if ((Character.isAlphabetic(str.charAt(i-1)) && str.charAt(i+1)=='(') ) {
+                strleft+=str.charAt(i-1);
+                str1+=str.charAt(i);
+                leftNode= new Node(strleft,null,null);
+               newNode = new Node(str1, leftNode , null);
                storeStrings.add(newNode);
               
             }
-            if ((Character.isAlphabetic(str.charAt(i+1)) && str.charAt(i-1)==')') ) {
-                rightNode= new Node(str.charAt(i+1),null,null);
-               newNode = new Node(str.charAt(i),   null,rightNode);
+            else if ((Character.isAlphabetic(str.charAt(i+1)) && str.charAt(i-1)==')') ) {
+                strright+=str.charAt(i+1);
+                str1+=str.charAt(i);
+                rightNode= new Node(strright,null,null);
+               newNode = new Node(str1,   null,rightNode);
                storeStrings.add(newNode);
                
             }
-            if (Character.isAlphabetic(str.charAt(i-1))&& Character.isAlphabetic(str.charAt(i+1))) {
-                leftNode= new Node(str.charAt(i-1),null,null);
-                rightNode= new Node(str.charAt(i+1),null,null);
-                newNode = new Node(str.charAt(i), leftNode,rightNode);
+            else if (Character.isAlphabetic(str.charAt(i-1))&& Character.isAlphabetic(str.charAt(i+1))) {
+                strleft+=str.charAt(i-1);
+                str1+=str.charAt(i);
+                strright+=str.charAt(i+1);
+                leftNode= new Node(strleft,null,null);
+                rightNode= new Node(strright,null,null);
+                newNode = new Node(str1, leftNode,rightNode);
                 storeStrings.add(newNode);
             }
           } 
         }
       rootNode =makeTree(storeStrings,  rootNode.root);
-      for (Node node : nodesList) {
-        for (Node node2 : storeStrings) {
-            if (node2.name==node.name) {
-                node2.height= node.height;
-                node2.width = node.width;
-            }
-            if ( node2.left.name==node.name) {
-                node2.left.height= node.height;
-                node2.left.width = node.width;
-            }
-            if ( node2.right.name== node.name) {
-                node2.right.height= node.height;
-                node2.right.width = node.width;
-            }
-        }
-      }
+
+    //   for (Node node : nodesList) {
+    //     for (Node node2 : storeStrings) {
+    //         if (node2.name==node.name) {
+    //             node2.height= node.height;
+    //             node2.width = node.width;
+    //         }
+    //         if ( node2.left.name==node.name) {
+    //             node2.left.height= node.height;
+    //             node2.left.width = node.width;
+    //         }
+    //         if ( node2.right.name== node.name) {
+    //             node2.right.height= node.height;
+    //             node2.right.width = node.width;
+    //         }
+    //     }
+    //   }
       return rootNode;
     }
     /*
@@ -136,7 +148,7 @@ public class Tree {
             if (arrayList.get(i)== root) {
                 for (int k=0;k<arrayList.size();k++) {
                     if ((i!=k)) {
-                        if (((arrayList.get(k).left.name)=='|'|| (arrayList.get(k).left.name)=='-')&& ((arrayList.get(k).right.name)=='|'|| (arrayList.get(k).right.name)=='-')) {
+                        if (((arrayList.get(k).left.name).equals("|")|| (arrayList.get(k).left.name).equals("-"))&& ((arrayList.get(k).right.name).equals("|")|| (arrayList.get(k).right.name).equals("-"))) {
                             if (k>indexOfRoot1) {
                                 root.right= arrayList.get(k);
                             }
@@ -144,7 +156,7 @@ public class Tree {
                                 root.left= arrayList.get(k);
                             }    
                         }
-                        if ((((arrayList.get(k).right.name)=='|'|| (arrayList.get(k).right.name=='-')))) {
+                        if ((((arrayList.get(k).right.name).equals("|")|| (arrayList.get(k).right.name.equals("-"))))) {
                             if (k>indexOfRoot1) {
                                 root.right= arrayList.get(k);
                             }
@@ -152,7 +164,7 @@ public class Tree {
                                 root.left= arrayList.get(k);
                             }    
                         }
-                        if ((arrayList.get(k).left.name=='-')||((arrayList.get(k).left.name=='|'))) {
+                        if ((arrayList.get(k).left.name.equals("-"))||((arrayList.get(k).left.name.equals("|")))) {
                             if (k>indexOfRoot1) {
                                 root.right= arrayList.get(k);
                                 
@@ -166,6 +178,7 @@ public class Tree {
                 }
             }
         }
+       
         return root;       
     }
     /*
