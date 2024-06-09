@@ -18,7 +18,7 @@ public class main {
             String name=in.next();
             Node newNode=new Node(height,width,name);
             nodes.add(newNode);
-
+            
             num--;
         }
         System.out.println("Adding is done");

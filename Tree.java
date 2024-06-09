@@ -106,7 +106,7 @@ public class Tree {
    }
 
    public boolean isRec(ArrayList nodesList){
-      System.out.println(nodesList);
+      //System.out.println(nodesList);
 
       for(int i=0;i<nodesList.size();i++){
          Node a=(Node) nodesList.get(i);
