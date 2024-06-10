@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 
 public class TreeFile {
     public void export_(String input){
-        try (PrintWriter out = new PrintWriter(new FileWriter("output.txt"))) {
+        try (PrintWriter out = new PrintWriter(new FileWriter("Files\\output.txt"))) {
             out.println(input);
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
@@ -14,7 +14,7 @@ public class TreeFile {
     }
     public String import_()throws IOException {
         StringBuilder fileContents = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader("output.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("Files\\output.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 fileContents.append(line);
