@@ -1,18 +1,14 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
-
 import javax.swing.*;
-
-import org.w3c.dom.events.MouseEvent;
-
-public class InputGUI extends JFrame {
+public class GUIinput extends JFrame {
     BinaryTree tree = new BinaryTree();
     String str = "";
     JTextField textField = new JTextField("Write your Excpression");
     Font font = new Font("Arial", Font.PLAIN, 20); // مشان تحديد حجم الأحرف
     JButton button = new JButton("Click");
-     public InputGUI(){
+     public GUIinput(){
         this.setTitle("Input Of BinaryTree");
         this.setBounds(100, 20, 800, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,7 +26,9 @@ public class InputGUI extends JFrame {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 str = textField.getText();
-                BiTreeGUI biTreeGUI = new BiTreeGUI(tree.storeNum(str));
+                
+                 new GUIBiTree(tree.exportTotree(str));
+                  new GUIBiTree(new SwapExprission().swapExprission(tree.exportTotree(str)));
             }
         });
         JPanel panel = new JPanel();

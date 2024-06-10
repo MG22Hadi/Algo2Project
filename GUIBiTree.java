@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class BiTreeGUI extends JFrame {
+public class GUIBiTree extends JFrame {
     private Node binaryRoot;
 
-    public BiTreeGUI(Node binaryRoot) {
+    public GUIBiTree(Node binaryRoot) {
         // خصائص الفريم والبانيل
         this.binaryRoot = binaryRoot;
         this.setTitle("Binary Tree Drawing");
@@ -15,32 +16,38 @@ public class BiTreeGUI extends JFrame {
         // Create a JPanel with a dark gray background
         JPanel panel = new JPanel() {
             @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(800, 2000); // set a large preferred height
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(getBackground());
+                g.fillRect(0, 0, getWidth(), getHeight());
+                drawBTree(g, binaryRoot, 300, 50, 200);
             }
         };
-        panel.setBackground(Color.darkGray);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(Color.DARK_GRAY);
 
-        // // Create a JScrollPane and add the panel to it
-        // JScrollPane scrollPane = new JScrollPane(panel);
-        // scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        // scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panel.add(Box.createVerticalGlue());
 
-        // // Add the scroll pane to the frame
-        // this.setContentPane(scrollPane);
+        JLabel thankLabel = new JLabel("Thank");
+        thankLabel.setForeground(Color.pink);
+        panel.add(thankLabel);
 
-        // setLocationRelativeTo(null);
-        this.add(panel);
-        this.setVisible(true);
+        panel.setPreferredSize(new Dimension(800, 1000));
+
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+        verticalScrollBar.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                panel.repaint();
+            }
+        });
+
+        this.setContentPane(scrollPane);
+        setVisible(true);
     }
-
-    // تابع جاهز بالسوينغ لاستدعي بقلبو توابع الرسم
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        this.drawBTree(g, binaryRoot, 350, 50, 200);
-    }
-
     //تابع رسم الشجرةالثنائية عالواجهة
     private void drawBTree(Graphics g, Node node, int x, int y, int xOffset) {
         if (node != null) {

@@ -1,3 +1,4 @@
+
 public class Node {
     int height;
     int width;
@@ -5,13 +6,7 @@ public class Node {
     Node left;
     Node right;
     Node root;
-    public Node(int height, int width, String name, Node left, Node right) {
-       this.height = height;
-       this.width = width;
-       this.name=name;
-       this.left = left;
-       this.right = right;
-    } 
+    
     public Node( int height, int width,String name){
        this.height = height;
        this.width = width;

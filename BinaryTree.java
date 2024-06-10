@@ -1,15 +1,14 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.Stack;
 
 //(A[20,10] | (B[20,10]|C[30,10])) – (D[30,50] | (E[40,30] – F[40,20]))
 public class BinaryTree {
    ArrayList<Node> nodesList= new ArrayList<>();
    Node root ;
 
-   public Node storeNum(String str){
-    int x=0,f=0,k=0;
+   public String storeNum(String str){
+    int f=0,k=0;
     String temp="";
     String str1="";
        for(int i= 0;i<str.length();i++){
@@ -38,17 +37,19 @@ public class BinaryTree {
             str1="";     
          }
        }
-    return exportTotree(temp);
+    return (temp);
    }
    
    ArrayList <Node> storeStrings = new ArrayList<>();
    Node rootNode = new Node("r", null, null);
    Node newNode,leftNode,rightNode;
+   
+   
     /*
      * function to set a public nodes in tree 
      */
     public Node exportTotree(String str){
-        
+        str = storeNum(str);
         int indexOfRoot=0;
        for(int i=0;i<str.length();i++){
         String str1 = "";
@@ -113,7 +114,7 @@ public class BinaryTree {
             }
         }
       }
-     
+      
       return rootNode;
     }
     /*
@@ -187,14 +188,17 @@ public class BinaryTree {
     /*
      * 
      */
-    public void export(Node root){
+    ArrayList <Node > nodes = new ArrayList<>();
+    public void import__(Node root){
         if (root == null) {
             return;
         }
-        export(root.left);
+        import__(root.left);
         System.out.print(root.name + "");
-        export(root.right);
+        nodes.add(root);
+        import__(root.right);
     }
+    
     /*
      * function to know if a char within a brackets or no
      */
