@@ -21,14 +21,11 @@ public class Node {
     public Node(String name) {
         this.name = name;
     }
-
     @Override
     public String toString() {
-        return " Node{" +
-                " name=" + name +" "+
-                ", h "+ height+" "+
-                ", w "+ width+" "+
-
-                '}';
+        return "Node [height=" + height + ", width=" + width + ", name=" + name + ", left=" + left + ", right=" + right
+                + "]";
     }
+
+   
 }

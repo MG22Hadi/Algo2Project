@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 //(A[20,10] | (B[20,10]|C[30,10])) – (D[30,50] | (E[40,30] – F[40,20]))
@@ -35,6 +37,7 @@ public class Tree {
       addToStack();
 
    }
+   Set <Node> storeNodes = new HashSet<>();
    public Node makeTree(String s,Node root){
       int sBracket=0, eBracket=0,indexF=0,tempR=0;
       String sub;
@@ -91,13 +94,17 @@ public class Tree {
       root =new Node(t2);
       root.left=makeTree(t1,new Node(t1));
       root.right=makeTree(t0,new Node(t0));
+      storeNodes.add(root);
       }else{
          String t0=makeTreeStack.pop();
          root =new Node(t0);
+         storeNodes.add(root);
+
       }
       if(tempR==0)
          this.root=root;
       tempR++;
+     
       return root;
    }
 
