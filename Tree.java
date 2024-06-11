@@ -37,7 +37,6 @@ public class Tree {
       addToStack();
 
    }
-   Set <Node> storeNodes = new HashSet<>();
    public Node makeTree(String s,Node root){
       int sBracket=0, eBracket=0,indexF=0,tempR=0;
       String sub;
@@ -94,11 +93,9 @@ public class Tree {
       root =new Node(t2);
       root.left=makeTree(t1,new Node(t1));
       root.right=makeTree(t0,new Node(t0));
-      storeNodes.add(root);
       }else{
          String t0=makeTreeStack.pop();
          root =new Node(t0);
-         storeNodes.add(root);
 
       }
       if(tempR==0)
