@@ -5,21 +5,21 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
-        BinaryTree tree= new BinaryTree();
+        BinaryTree2 tree1 = new BinaryTree2();
         ArrayList <Node> storeNodes = new ArrayList<>();
         Permutations paper = new Permutations();
-        String s= " A[20,10] | (B[20,10]|C[30,10])";
+        String s= "  (A[20,10] | (B[20,10]|C[30,10])) - (D[30,50] | (E[40,30] - F[40,20]))";
+                    
         /*
          * export and import to tree
          */
-        Node node =tree.exportTotree(s);
-        //System.out.println(node);
-        //System.out.println();
-        // tree.import__(node);
-        // System.out.println();
-        // for (Node string : tree.nodes) {
-        //     string.printH();
-        // }
+        Node node =tree1.Import(s);
+        System.out.println(node);
+        tree1.export(node);
+        System.out.println();
+        for (Node string : tree1.nodes) {
+            string.printH();
+        }
 
         /*
          * export and import to file
@@ -46,7 +46,7 @@ public class Main {
         /*
          * Graphical interface for tree and flipping tree by Enter an expression
          */
-        //GUIinput inputGUI= new GUIinput();
+        GUIinput inputGUI= new GUIinput();
 
     }
 }

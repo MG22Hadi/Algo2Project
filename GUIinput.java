@@ -3,7 +3,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import javax.swing.*;
 public class GUIinput extends JFrame {
-    BinaryTree tree = new BinaryTree();
+    BinaryTree2 tree = new BinaryTree2();
     String str = "";
     JTextField textField = new JTextField("Write your Excpression");
     Font font = new Font("Arial", Font.PLAIN, 20); // مشان تحديد حجم الأحرف
@@ -27,8 +27,8 @@ public class GUIinput extends JFrame {
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 str = textField.getText();
                 
-                 new GUIBiTree(tree.exportTotree(str));
-                  new GUIBiTree(new SwapExprission().swapExprission(tree.exportTotree(str)));
+                 new GUIBiTree(tree.Import(str));
+                  new GUIBiTree(new SwapExprission().swapExprission(tree.Import(str)));
             }
         });
         JPanel panel = new JPanel();

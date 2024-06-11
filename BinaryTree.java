@@ -265,16 +265,7 @@ public class BinaryTree {
     /*
      * 
      */
-    ArrayList <Node > nodes = new ArrayList<>();
-    public void import__(Node root){
-        if (root == null) {
-            return;
-        }
-        import__(root.left);
-        System.out.print(root.name + "");
-        nodes.add(root);
-        import__(root.right);
-    }
+    
     
     /*
      * function to know if a char within a brackets or no
