@@ -21,6 +21,9 @@ public class Node {
         this.width = width;
         this.height = height;
     }
+    public Node(String t2) {
+        //TODO Auto-generated constructor stub
+    }
     public void printH(){
         System.out.println("name =" + name + "  hight ="+ height + "  width =" + width);
     }

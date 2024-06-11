@@ -37,6 +37,7 @@ public class BinaryTree {
             str1="";     
          }
        }
+       
     return (temp);
    }
    
@@ -44,11 +45,13 @@ public class BinaryTree {
    Node rootNode = new Node("r", null, null);
    Node newNode,leftNode,rightNode;
    
-   
+   public boolean hasOnlyOneChar(String str) {
+    return str!= null && str.length() == 1;
+}
     /*
      * function to set a public nodes in tree 
      */
-    public Node exportTotree(String str){
+    public  Node exportTotree(String str){
         str = storeNum(str);
         int indexOfRoot=0;
        for(int i=0;i<str.length();i++){
@@ -63,8 +66,35 @@ public class BinaryTree {
                rootNode.root = newNode;
                storeStrings.add(newNode);
             }
-            else if (str.charAt(i-1)==')' && str.charAt(i+1)=='('&& (isWithinBrackets(str, i))) {
+            else if (Character.isAlphabetic(str.charAt(i-1))&& Character.isAlphabetic(str.charAt(i+1))&&!(isWithinBrackets(str, i))) {
+                strleft+=str.charAt(i-1);
                 str1+=str.charAt(i);
+                strright+=str.charAt(i+1);
+                leftNode= new Node(strleft,null,null);
+                rightNode= new Node(strright,null,null);
+                newNode = new Node(str1, leftNode,rightNode);
+                rootNode.root = newNode;
+                storeStrings.add(newNode);
+            }
+            else if ((Character.isAlphabetic(str.charAt(i-1)) && str.charAt(i+1)=='(') && !(isWithinBrackets(str, i))) {
+                strleft+=str.charAt(i-1);
+                str1+=str.charAt(i);
+                leftNode= new Node(strleft,null,null);
+               newNode = new Node(str1, leftNode , null);
+               rootNode.root = newNode;
+               storeStrings.add(newNode);
+              
+            }
+            else if ((Character.isAlphabetic(str.charAt(i+1)) && str.charAt(i-1)==')')&& !(isWithinBrackets(str, i))) {
+                strright+=str.charAt(i+1);
+                str1+=str.charAt(i);
+                rightNode= new Node(strright,null,null);
+               newNode = new Node(str1,null,rightNode);
+               storeStrings.add(newNode);
+               
+            }
+            else if (str.charAt(i-1)==')' && str.charAt(i+1)=='('&& (isWithinBrackets(str, i))) {
+               str1+=str.charAt(i);
                newNode = new Node(str1, null, null);
                storeStrings.add(newNode);
             }
@@ -93,28 +123,41 @@ public class BinaryTree {
                 newNode = new Node(str1, leftNode,rightNode);
                 storeStrings.add(newNode);
             }
-          } 
+        } 
+        if (hasOnlyOneChar(str)) {
+            str1+=str.charAt(i);
+            newNode = new Node(str1, null,null);
+            rootNode.root = newNode;
+            storeStrings.add(newNode);
         }
-
+    }
+     //System.out.println(rootNode.root);
       rootNode =makeTree(storeStrings,  rootNode.root);
-
-      for (Node node : nodesList) {
-        for (Node node2 : storeStrings) {
-            if (node2.name.equals(node.name)) {
-                node2.height= node.height;
-                node2.width = node.width;
-            }
-            if ( node2.left.name.equals(node.name)) {
-                node2.left.height= node.height;
-                node2.left.width = node.width;
-            }
-            if ( node2.right.name.equals(node.name)) {
-                node2.right.height= node.height;
-                node2.right.width = node.width;
-            }
-        }
-      }
       
+    //   for (Node node : nodesList) {
+    //     for (Node node2 : storeStrings) {
+    //         if (node2.name.equals(node.name)) {
+    //             node2.height= node.height;
+    //             node2.width = node.width;
+    //         }
+    //         if ( node2.left.name.equals(node.name)) {
+    //             node2.left.height= node.height;
+    //             node2.left.width = node.width;
+    //         }
+    //         if ( node2.right.name.equals(node.name)) {
+    //             node2.right.height= node.height;
+    //             node2.right.width = node.width;
+    //         }
+    //     }
+    //   }
+    //   for (Node node :storeStrings) {
+    //     System.out.println(node.name);
+    //     //System.out.println();
+    //   }
+    //   for (Node node : nodesList) {
+    //     System.out.println(node.name);
+    //   }
+    
       return rootNode;
     }
     /*
@@ -146,20 +189,20 @@ public class BinaryTree {
                 }
             } 
         }
-        
+        //System.out.println(root.name);
         //set root
         for (int i=0;i<arrayList.size();i++) {
             if (arrayList.get(i)== root) {
                 for (int k=0;k<arrayList.size();k++) {
                     if ((i!=k)) {
-                        if (((arrayList.get(k).left.name).equals("|")|| (arrayList.get(k).left.name).equals("-"))&& ((arrayList.get(k).right.name).equals("|")|| (arrayList.get(k).right.name).equals("-"))) {
-                            if (k>indexOfRoot1) {
-                                root.right= arrayList.get(k);
-                            }
-                            else{
-                                root.left= arrayList.get(k);
-                            }    
-                        }
+                        // if (((arrayList.get(k).left.name).equals("|")|| (arrayList.get(k).left.name).equals("-"))&& ((arrayList.get(k).right.name).equals("|")|| (arrayList.get(k).right.name).equals("-"))) {
+                        //     if (k>indexOfRoot1) {
+                        //         root.right= arrayList.get(k);
+                        //     }
+                        //     else{
+                        //         root.left= arrayList.get(k);
+                        //     }    
+                        // }
                         if ((((arrayList.get(k).right.name).equals("|")|| (arrayList.get(k).right.name.equals("-"))))) {
                             if (k>indexOfRoot1) {
                                 root.right= arrayList.get(k);
@@ -177,12 +220,46 @@ public class BinaryTree {
                                 root.left= arrayList.get(k);
                                
                             }    
-                        }   
+                        } 
+                       if ((arrayList.get(k).left.name.equals(null))||((arrayList.get(k).left.name.equals(null)))) {
+                            if (k>indexOfRoot1) {
+                                root.right= arrayList.get(k);
+                                
+                            }
+                            else{
+                                root.left= arrayList.get(k);
+                            
+                            }
+                       }
+                        if ((arrayList.get(k).right.name.equals(null))) {
+                            if (k>indexOfRoot1) {
+                                root.right= arrayList.get(k);
+                                
+                            }
+                            else{
+                                root.left= arrayList.get(k);
+                            
+                            }
+                        }
+                        if ((arrayList.get(k).left.name.equals(null))) {
+                            if (k>indexOfRoot1) {
+                                root.right= arrayList.get(k);
+                                
+                            }
+                            else{
+                                root.left= arrayList.get(k);
+                            
+                            }
+                        }
                     }
                 }
             }
         }
-        
+    //    for (Node node : arrayList) {
+    //     System.out.println(node.name);
+    //    }
+        //System.out.println(arrayList);
+        //System.out.println(root);
         return root;       
     }
     /*
