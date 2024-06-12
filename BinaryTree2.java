@@ -11,25 +11,37 @@ public class BinaryTree2 {
    Set <Node> setNode = new HashSet<>();
 
    public Node Import(String str){
-      int x=0;
+      int f=0,k=0;
       String temp="";
-      for(int i= 0;i<str.length();i++){
-         // تجريد العبارة من الارقام
-         if(Character.isAlphabetic(str.charAt(i))||str.charAt(i)=='('||str.charAt(i)==')'||str.charAt(i)=='|'||str.charAt(i)=='-' ){
-            temp+=str.charAt(i);
+      String str1="";
+         for(int i= 0;i<str.length();i++){
+          if(Character.isAlphabetic(str.charAt(i))||str.charAt(i)=='('||str.charAt(i)==')'||str.charAt(i)=='|'||str.charAt(i)=='-' ){
+              temp+=str.charAt(i);
+              for(int j=i;j<str.length();j++){
+                  if(str.charAt(j)==','){
+                      f=j;
+  
+                  }
+                  if(str.charAt(j)==']'){
+                      k=j;
+                      break;
+                  }
+              }
+          }
+           //Store nodes in ArrayList
+           if (Character.isAlphabetic(str.charAt(i))){
+              str1+=str.charAt(i);
+              String heightS =str.substring(i+2,f);
+              int heightI = Integer.parseInt(heightS);
+              String widthS=str.substring(f+1,k);
+              int widthI= Integer.parseInt(widthS);
+              Node newNode= new Node(heightI,widthI ,str1);
+              nodesList.add(newNode); 
+               str1="";
+           }
          }
-         //Store nodes in ArrayList
-         if (Character.isAlphabetic(str.charAt(i))){
-
-            String heightS =str.substring(i+2,i+4);
-            int heightI = Integer.parseInt(heightS);
-            String widthS=str.substring(i+5,i+7);
-            int widthI= Integer.parseInt(widthS);
-            Node newNode= new Node(heightI,widthI ,String.valueOf(str.charAt(i)));
-            nodesList.add(newNode);
-
-         }
-      }
+         
+      
       Node node = makeTree(temp ,root);
          for (Node node1 : nodesList) {
         for (Node node2 : setNode) {
@@ -109,15 +121,15 @@ public class BinaryTree2 {
       root =new Node(t2);
       root.left=makeTree(t1,new Node(t1));
       root.right=makeTree(t0,new Node(t0));
-      setNode .add(root);
+      setNode.add(root);
       }else{
          String t0=makeTreeStack.pop();
          root =new Node(t0);
          setNode .add(root);
       }
-      if(tempR==0)
-         this.root=root;
-      tempR++;
+         if(tempR==0)
+            this.root=root;
+         tempR++;
       return root;
    }
 

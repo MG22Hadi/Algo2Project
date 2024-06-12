@@ -8,7 +8,7 @@ public class Main {
         BinaryTree2 tree1 = new BinaryTree2();
         ArrayList <Node> storeNodes = new ArrayList<>();
         Permutations paper = new Permutations();
-        String s= "  (A[20,10] | (B[20,10]|C[30,10])) - (D[30,50] | (E[40,30] - F[40,20]))";
+        String s= "(A[20,10]|G[30,10])-(B[20,10]|C[30,10])";
                     
         /*
          * export and import to tree

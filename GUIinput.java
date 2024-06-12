@@ -37,10 +37,7 @@ public class GUIinput extends JFrame {
         panel.add(textField);
         panel.add(button);
         this.setContentPane(panel);
-        this.setVisible(true);
-
-       
-        
+        this.setVisible(true);   
     }
     
 }

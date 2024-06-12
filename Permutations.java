@@ -3,6 +3,9 @@ import java.util.*;
 public class Permutations {
 
 
+    /*
+     * تعبئة الاوراق بمصفوفة ثنائية
+     */
     public  boolean coverRectangles(int bigRectangleWidth, int bigRectangleHeight, List<Node> smallleafNodes) {
         try {
             boolean[][] matrix = new boolean[bigRectangleHeight][bigRectangleWidth];
@@ -30,8 +33,6 @@ public class Permutations {
                     }
                 }
             }
-           
-  
             for (int i = 0; i < bigRectangleHeight; i++) {
                 for (int j = 0; j < bigRectangleWidth; j++) {
                     if (!matrix[i][j]) {
@@ -45,6 +46,7 @@ public class Permutations {
             System.out.print("");
             return false;
         }
+        
     }
   
     private  boolean isValidPosition(boolean[][] matrix, int bigRectangleWidth, int bigRectangleHeight,
@@ -132,8 +134,6 @@ public class Permutations {
             bigRectangleWidth=dimensions.get(i).width;
             for (int j = 0; j < permutations.size(); j++) {
                 if (coverRectangles(bigRectangleWidth, bigRectangleHeight, permutations.get(j))) {
-
-                    //System.out.println("The large rectangle can be covered successfully!");
                     return true;
                 } 
                 
